@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Tugas Model Bisnis</title>
+  <script src="/_sdk/data_sdk.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+        }
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        @media print {
+            .no-print { display: none !important; }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="h-full bg-gradient-to-br from-blue-50 to-indigo-100 font-sans">
+  <div class="min-h-full py-8 px-4">
+   <div class="max-w-4xl mx-auto"><!-- Header -->
+    <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+     <h1 id="form-title" class="text-3xl font-bold text-gray-800 text-center mb-2">Tugas Model Bisnis</h1>
+     <div class="text-center text-gray-600">
+      <p class="text-sm mt-2">Kelas XII SMA</p>
+     </div>
+    </div><!-- Form -->
+    <form id="assignment-form" class="bg-white rounded-lg shadow-lg p-8"><!-- Student Info -->
+     <div class="mb-8 p-6 bg-blue-50 rounded-lg">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Data Siswa</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+       <div><label for="student-name" class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap</label> <input type="text" id="student-name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+       </div>
+       <div><label for="student-class" class="block text-sm font-medium text-gray-700 mb-2">Kelas</label> <input type="text" id="student-class" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+       </div>
+      </div>
+     </div><!-- Question 1 -->
+     <div class="mb-8">
+      <h3 class="text-lg font-semibold text-gray-800 mb-3">1. Pengertian Model Bisnis</h3>
+      <p class="text-gray-600 mb-4">Jelaskan pengertian model bisnis menurut pemahaman Anda dengan mengambil minimal 3 referensi dari buku, kemudian buatlah kesimpulan dengan bahasa Anda sendiri.</p><!-- References and Definitions Section -->
+      <div class="mb-6"><label class="block text-sm font-medium text-gray-700 mb-3">Referensi Buku dan Pengertian:</label>
+       <div id="references-container">
+        <div class="reference-item mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+         <h4 class="text-sm font-semibold text-gray-800 mb-3">Referensi 1</h4>
+         <div class="grid md:grid-cols-4 gap-3 mb-4">
+          <div><label class="block text-xs font-medium text-gray-600 mb-1">Nama Pengarang</label> <input type="text" class="reference-author w-full px-3 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+          </div>
+          <div><label class="block text-xs font-medium text-gray-600 mb-1">Tahun</label> <input type="text" class="reference-year w-full px-3 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+          </div>
+          <div><label class="block text-xs font-medium text-gray-600 mb-1">Judul Buku</label> <input type="text" class="reference-title w-full px-3 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+          </div>
+          <div><label class="block text-xs font-medium text-gray-600 mb-1">Penerbit</label> <input type="text" class="reference-publisher w-full px-3 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+          </div>
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Pengertian Model Bisnis Menurut Referensi Ini:</label> <textarea class="reference-definition w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="4" required placeholder="Tuliskan pengertian model bisnis menurut buku referensi ini..."></textarea>
+         </div>
+        </div>
+       </div><button type="button" id="add-reference-btn" class="mt-2 px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-700 text-sm font-medium rounded-lg transition duration-200"> + Tambah Referensi </button>
+      </div><!-- Conclusion Section -->
+      <div><label for="conclusion" class="block text-sm font-medium text-gray-700 mb-2">Kesimpulan dengan Bahasa Sendiri:</label> <textarea id="conclusion" required rows="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Tuliskan kesimpulan Anda tentang model bisnis berdasarkan semua referensi yang telah dipelajari..."></textarea>
+      </div>
+     </div><!-- Question 2 -->
+     <div class="mb-8">
+      <h3 class="text-lg font-semibold text-gray-800 mb-3">2. Model Bisnis Digital</h3>
+      <p class="text-gray-600 mb-4">Sebutkan dan jelaskan 10 model bisnis digital beserta pengertiannya masing-masing.</p>
+      <div id="digital-models-container">
+       <div class="grid gap-4">
+        <div class="digital-model-item grid md:grid-cols-2 gap-3 p-4 bg-blue-50 rounded-lg">
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Nama Model Bisnis Digital 1:</label> <input type="text" class="digital-model-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Pengertian:</label> <textarea class="digital-model-definition w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" required></textarea>
+         </div>
+        </div>
+        <div class="digital-model-item grid md:grid-cols-2 gap-3 p-4 bg-blue-50 rounded-lg">
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Nama Model Bisnis Digital 2:</label> <input type="text" class="digital-model-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Pengertian:</label> <textarea class="digital-model-definition w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" required></textarea>
+         </div>
+        </div>
+        <div class="digital-model-item grid md:grid-cols-2 gap-3 p-4 bg-blue-50 rounded-lg">
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Nama Model Bisnis Digital 3:</label> <input type="text" class="digital-model-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Pengertian:</label> <textarea class="digital-model-definition w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" required></textarea>
+         </div>
+        </div>
+        <div class="digital-model-item grid md:grid-cols-2 gap-3 p-4 bg-blue-50 rounded-lg">
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Nama Model Bisnis Digital 4:</label> <input type="text" class="digital-model-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Pengertian:</label> <textarea class="digital-model-definition w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" required></textarea>
+         </div>
+        </div>
+        <div class="digital-model-item grid md:grid-cols-2 gap-3 p-4 bg-blue-50 rounded-lg">
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Nama Model Bisnis Digital 5:</label> <input type="text" class="digital-model-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Pengertian:</label> <textarea class="digital-model-definition w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" required></textarea>
+         </div>
+        </div>
+        <div class="digital-model-item grid md:grid-cols-2 gap-3 p-4 bg-blue-50 rounded-lg">
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Nama Model Bisnis Digital 6:</label> <input type="text" class="digital-model-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Pengertian:</label> <textarea class="digital-model-definition w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" required></textarea>
+         </div>
+        </div>
+        <div class="digital-model-item grid md:grid-cols-2 gap-3 p-4 bg-blue-50 rounded-lg">
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Nama Model Bisnis Digital 7:</label> <input type="text" class="digital-model-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Pengertian:</label> <textarea class="digital-model-definition w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" required></textarea>
+         </div>
+        </div>
+        <div class="digital-model-item grid md:grid-cols-2 gap-3 p-4 bg-blue-50 rounded-lg">
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Nama Model Bisnis Digital 8:</label> <input type="text" class="digital-model-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Pengertian:</label> <textarea class="digital-model-definition w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" required></textarea>
+         </div>
+        </div>
+        <div class="digital-model-item grid md:grid-cols-2 gap-3 p-4 bg-blue-50 rounded-lg">
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Nama Model Bisnis Digital 9:</label> <input type="text" class="digital-model-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Pengertian:</label> <textarea class="digital-model-definition w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" required></textarea>
+         </div>
+        </div>
+        <div class="digital-model-item grid md:grid-cols-2 gap-3 p-4 bg-blue-50 rounded-lg">
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Nama Model Bisnis Digital 10:</label> <input type="text" class="digital-model-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Pengertian:</label> <textarea class="digital-model-definition w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" required></textarea>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div><!-- Question 3 -->
+     <div class="mb-8">
+      <h3 class="text-lg font-semibold text-gray-800 mb-3">3. Model Bisnis Non-Digital</h3>
+      <p class="text-gray-600 mb-4">Sebutkan dan jelaskan 10 model bisnis non-digital beserta pengertiannya masing-masing.</p>
+      <div id="non-digital-models-container">
+       <div class="grid gap-4">
+        <div class="non-digital-model-item grid md:grid-cols-2 gap-3 p-4 bg-green-50 rounded-lg">
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Nama Model Bisnis Non-Digital 1:</label> <input type="text" class="non-digital-model-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Pengertian:</label> <textarea class="non-digital-model-definition w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" required></textarea>
+         </div>
+        </div>
+        <div class="non-digital-model-item grid md:grid-cols-2 gap-3 p-4 bg-green-50 rounded-lg">
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Nama Model Bisnis Non-Digital 2:</label> <input type="text" class="non-digital-model-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Pengertian:</label> <textarea class="non-digital-model-definition w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" required></textarea>
+         </div>
+        </div>
+        <div class="non-digital-model-item grid md:grid-cols-2 gap-3 p-4 bg-green-50 rounded-lg">
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Nama Model Bisnis Non-Digital 3:</label> <input type="text" class="non-digital-model-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Pengertian:</label> <textarea class="non-digital-model-definition w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" required></textarea>
+         </div>
+        </div>
+        <div class="non-digital-model-item grid md:grid-cols-2 gap-3 p-4 bg-green-50 rounded-lg">
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Nama Model Bisnis Non-Digital 4:</label> <input type="text" class="non-digital-model-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Pengertian:</label> <textarea class="non-digital-model-definition w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" required></textarea>
+         </div>
+        </div>
+        <div class="non-digital-model-item grid md:grid-cols-2 gap-3 p-4 bg-green-50 rounded-lg">
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Nama Model Bisnis Non-Digital 5:</label> <input type="text" class="non-digital-model-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Pengertian:</label> <textarea class="non-digital-model-definition w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" required></textarea>
+         </div>
+        </div>
+        <div class="non-digital-model-item grid md:grid-cols-2 gap-3 p-4 bg-green-50 rounded-lg">
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Nama Model Bisnis Non-Digital 6:</label> <input type="text" class="non-digital-model-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Pengertian:</label> <textarea class="non-digital-model-definition w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" required></textarea>
+         </div>
+        </div>
+        <div class="non-digital-model-item grid md:grid-cols-2 gap-3 p-4 bg-green-50 rounded-lg">
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Nama Model Bisnis Non-Digital 7:</label> <input type="text" class="non-digital-model-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Pengertian:</label> <textarea class="non-digital-model-definition w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" required></textarea>
+         </div>
+        </div>
+        <div class="non-digital-model-item grid md:grid-cols-2 gap-3 p-4 bg-green-50 rounded-lg">
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Nama Model Bisnis Non-Digital 8:</label> <input type="text" class="non-digital-model-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Pengertian:</label> <textarea class="non-digital-model-definition w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" required></textarea>
+         </div>
+        </div>
+        <div class="non-digital-model-item grid md:grid-cols-2 gap-3 p-4 bg-green-50 rounded-lg">
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Nama Model Bisnis Non-Digital 9:</label> <input type="text" class="non-digital-model-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Pengertian:</label> <textarea class="non-digital-model-definition w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" required></textarea>
+         </div>
+        </div>
+        <div class="non-digital-model-item grid md:grid-cols-2 gap-3 p-4 bg-green-50 rounded-lg">
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Nama Model Bisnis Non-Digital 10:</label> <input type="text" class="non-digital-model-name w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+         </div>
+         <div><label class="block text-sm font-medium text-gray-700 mb-2">Pengertian:</label> <textarea class="non-digital-model-definition w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" required></textarea>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div><!-- Question 4 -->
+     <div class="mb-8">
+      <h3 class="text-lg font-semibold text-gray-800 mb-3">4. Perbedaan Model Bisnis Digital dan Non-Digital</h3>
+      <p class="text-gray-600 mb-4">Tentukan 5 perbedaan utama antara model bisnis digital dan non-digital dalam tabel berikut:</p>
+      <div class="overflow-x-auto">
+       <table class="w-full border-collapse border border-gray-300">
+        <thead>
+         <tr class="bg-gray-100">
+          <th class="border border-gray-300 px-4 py-3 text-left font-semibold text-gray-800">Model Bisnis Digital</th>
+          <th class="border border-gray-300 px-4 py-3 text-left font-semibold text-gray-800">Model Bisnis Non-Digital</th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td class="border border-gray-300 p-2"><textarea class="difference-digital-1 w-full px-3 py-2 border-0 resize-none focus:ring-2 focus:ring-blue-500 focus:outline-none" rows="3" placeholder="Perbedaan 1 - Digital" required></textarea></td>
+          <td class="border border-gray-300 p-2"><textarea class="difference-non-digital-1 w-full px-3 py-2 border-0 resize-none focus:ring-2 focus:ring-blue-500 focus:outline-none" rows="3" placeholder="Perbedaan 1 - Non-Digital" required></textarea></td>
+         </tr>
+         <tr class="bg-gray-50">
+          <td class="border border-gray-300 p-2"><textarea class="difference-digital-2 w-full px-3 py-2 border-0 resize-none focus:ring-2 focus:ring-blue-500 focus:outline-none" rows="3" placeholder="Perbedaan 2 - Digital" required></textarea></td>
+          <td class="border border-gray-300 p-2"><textarea class="difference-non-digital-2 w-full px-3 py-2 border-0 resize-none focus:ring-2 focus:ring-blue-500 focus:outline-none" rows="3" placeholder="Perbedaan 2 - Non-Digital" required></textarea></td>
+         </tr>
+         <tr>
+          <td class="border border-gray-300 p-2"><textarea class="difference-digital-3 w-full px-3 py-2 border-0 resize-none focus:ring-2 focus:ring-blue-500 focus:outline-none" rows="3" placeholder="Perbedaan 3 - Digital" required></textarea></td>
+          <td class="border border-gray-300 p-2"><textarea class="difference-non-digital-3 w-full px-3 py-2 border-0 resize-none focus:ring-2 focus:ring-blue-500 focus:outline-none" rows="3" placeholder="Perbedaan 3 - Non-Digital" required></textarea></td>
+         </tr>
+         <tr class="bg-gray-50">
+          <td class="border border-gray-300 p-2"><textarea class="difference-digital-4 w-full px-3 py-2 border-0 resize-none focus:ring-2 focus:ring-blue-500 focus:outline-none" rows="3" placeholder="Perbedaan 4 - Digital" required></textarea></td>
+          <td class="border border-gray-300 p-2"><textarea class="difference-non-digital-4 w-full px-3 py-2 border-0 resize-none focus:ring-2 focus:ring-blue-500 focus:outline-none" rows="3" placeholder="Perbedaan 4 - Non-Digital" required></textarea></td>
+         </tr>
+         <tr>
+          <td class="border border-gray-300 p-2"><textarea class="difference-digital-5 w-full px-3 py-2 border-0 resize-none focus:ring-2 focus:ring-blue-500 focus:outline-none" rows="3" placeholder="Perbedaan 5 - Digital" required></textarea></td>
+          <td class="border border-gray-300 p-2"><textarea class="difference-non-digital-5 w-full px-3 py-2 border-0 resize-none focus:ring-2 focus:ring-blue-500 focus:outline-none" rows="3" placeholder="Perbedaan 5 - Non-Digital" required></textarea></td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+     </div><!-- Case Studies -->
+     <div class="mb-8">
+      <h3 class="text-lg font-semibold text-gray-800 mb-4">5. Studi Kasus</h3>
+      <p class="text-gray-600 mb-6">Tentukan model bisnis yang tepat untuk setiap kasus berikut dan berikan alasannya:</p><!-- Case 1 -->
+      <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+       <h4 class="font-semibold text-gray-800 mb-2">Kasus 1:</h4>
+       <p class="text-gray-700 mb-3">Seorang pengusaha membuka toko kelontong di lingkungan perumahan. Ia menjual berbagai kebutuhan sehari-hari seperti beras, minyak, sabun, dan makanan ringan. Pelanggan datang langsung ke toko untuk berbelanja.</p><label for="case-1" class="block text-sm font-medium text-gray-700 mb-2">Model bisnis dan alasan:</label> <textarea id="case-1" required rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Model bisnis: ... Alasan: ..."></textarea>
+      </div><!-- Case 2 -->
+      <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+       <h4 class="font-semibold text-gray-800 mb-2">Kasus 2:</h4>
+       <p class="text-gray-700 mb-3">Sebuah startup teknologi mengembangkan aplikasi mobile untuk pemesanan makanan online. Mereka menghubungkan restoran dengan konsumen dan mengambil komisi dari setiap transaksi yang terjadi melalui platform mereka.</p><label for="case-2" class="block text-sm font-medium text-gray-700 mb-2">Model bisnis dan alasan:</label> <textarea id="case-2" required rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Model bisnis: ... Alasan: ..."></textarea>
+      </div><!-- Case 3 -->
+      <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+       <h4 class="font-semibold text-gray-800 mb-2">Kasus 3:</h4>
+       <p class="text-gray-700 mb-3">Seorang content creator membuat video edukatif di YouTube tentang matematika. Ia mendapatkan penghasilan dari iklan yang ditampilkan di videonya dan juga menjual kursus online premium kepada subscriber yang ingin belajar lebih mendalam.</p><label for="case-3" class="block text-sm font-medium text-gray-700 mb-2">Model bisnis dan alasan:</label> <textarea id="case-3" required rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Model bisnis: ... Alasan: ..."></textarea>
+      </div><!-- Case 4 -->
+      <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+       <h4 class="font-semibold text-gray-800 mb-2">Kasus 4:</h4>
+       <p class="text-gray-700 mb-3">Sebuah perusahaan menyediakan layanan berlangganan bulanan untuk pengiriman box berisi produk kecantikan dan perawatan kulit. Pelanggan membayar biaya tetap setiap bulan dan menerima produk-produk pilihan yang dikirim ke rumah mereka.</p><label for="case-4" class="block text-sm font-medium text-gray-700 mb-2">Model bisnis dan alasan:</label> <textarea id="case-4" required rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Model bisnis: ... Alasan: ..."></textarea>
+      </div><!-- Case 5 -->
+      <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+       <h4 class="font-semibold text-gray-800 mb-2">Kasus 5:</h4>
+       <p class="text-gray-700 mb-3">Seorang pengrajin furniture kayu menerima pesanan custom dari pelanggan. Ia membuat meja, kursi, dan lemari sesuai dengan spesifikasi dan desain yang diminta oleh pelanggan. Setiap produk dibuat secara individual dan unik.</p><label for="case-5" class="block text-sm font-medium text-gray-700 mb-2">Model bisnis dan alasan:</label> <textarea id="case-5" required rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Model bisnis: ... Alasan: ..."></textarea>
+      </div>
+     </div><!-- Submit Buttons -->
+     <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200"><button type="submit" id="submit-btn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 flex items-center justify-center"> <span id="submit-text">Simpan Jawaban</span>
+       <div id="submit-loading" class="hidden ml-2">
+        <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+       </div></button> <button type="button" id="download-btn" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 flex items-center justify-center"> <span id="download-text">Download PDF</span>
+       <div id="download-loading" class="hidden ml-2">
+        <div class="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+       </div></button>
+     </div>
+    </form><!-- Success Message -->
+    <div id="success-message" class="hidden mt-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+     <div class="flex items-center">
+      <svg class="w-5 h-5 mr-2" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+      </svg><span>Jawaban berhasil disimpan! Anda dapat mendownload PDF sekarang.</span>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+        let currentData = [];
+        let config = {};
+        
+        const defaultConfig = {
+            form_title: "Tugas Model Bisnis",
+            teacher_name: "Nama Pengajar",
+            subject_name: "Ekonomi/Kewirausahaan"
+        };
+
+        // Data handler for SDK
+        const dataHandler = {
+            onDataChanged(data) {
+                currentData = data;
+                console.log('Data updated:', data.length, 'records');
+            }
+        };
+
+        // Element SDK implementation
+        const element = {
+            defaultConfig: defaultConfig,
+            onConfigChange: async (newConfig) => {
+                config = newConfig;
+                
+                // Update form title
+                const titleElement = document.getElementById('form-title');
+                if (titleElement) {
+                    titleElement.textContent = config.form_title || defaultConfig.form_title;
+                }
+                
+                // Update teacher name
+                const teacherElement = document.getElementById('teacher-name');
+                if (teacherElement) {
+                    teacherElement.textContent = config.teacher_name || defaultConfig.teacher_name;
+                }
+                
+                // Update subject name
+                const subjectElement = document.getElementById('subject-name');
+                if (subjectElement) {
+                    subjectElement.textContent = config.subject_name || defaultConfig.subject_name;
+                }
+            },
+            mapToCapabilities: (config) => ({
+                recolorables: [
+                    {
+                        get: () => config.primary_color || "#3B82F6",
+                        set: (value) => {
+                            config.primary_color = value;
+                            window.elementSdk.setConfig({ primary_color: value });
+                        }
+                    }
+                ],
+                borderables: [],
+                fontEditable: undefined,
+                fontSizeable: undefined
+            }),
+            mapToEditPanelValues: (config) => new Map([
+                ["form_title", config.form_title || defaultConfig.form_title],
+                ["teacher_name", config.teacher_name || defaultConfig.teacher_name],
+                ["subject_name", config.subject_name || defaultConfig.subject_name]
+            ])
+        };
+
+        // Initialize SDKs
+        async function initializeApp() {
+            try {
+                // Initialize Element SDK
+                if (window.elementSdk) {
+                    await window.elementSdk.init(element);
+                    config = window.elementSdk.config;
+                }
+
+                // Initialize Data SDK
+                if (window.dataSdk) {
+                    const result = await window.dataSdk.init(dataHandler);
+                    if (!result.isOk) {
+                        console.error('Failed to initialize data SDK');
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to initialize app:', error);
+            }
+        }
+
+        // Collect references data
+        function collectReferencesData() {
+            const referenceItems = document.querySelectorAll('.reference-item');
+            const references = [];
+            
+            referenceItems.forEach((item, index) => {
+                const author = item.querySelector('.reference-author').value;
+                const year = item.querySelector('.reference-year').value;
+                const title = item.querySelector('.reference-title').value;
+                const publisher = item.querySelector('.reference-publisher').value;
+                const definition = item.querySelector('.reference-definition').value;
+                
+                if (author && year && title && publisher && definition) {
+                    references.push(`Referensi ${index + 1}:\n${author} (${year}). ${title}. ${publisher}.\nPengertian: ${definition}`);
+                }
+            });
+            
+            return references.join('\n\n');
+        }
+
+        // Collect digital models data
+        function collectDigitalModelsData() {
+            const digitalItems = document.querySelectorAll('.digital-model-item');
+            const models = [];
+            
+            digitalItems.forEach((item, index) => {
+                const name = item.querySelector('.digital-model-name').value;
+                const definition = item.querySelector('.digital-model-definition').value;
+                
+                if (name && definition) {
+                    models.push(`${index + 1}. ${name}: ${definition}`);
+                }
+            });
+            
+            return models.join('\n\n');
+        }
+
+        // Collect non-digital models data
+        function collectNonDigitalModelsData() {
+            const nonDigitalItems = document.querySelectorAll('.non-digital-model-item');
+            const models = [];
+            
+            nonDigitalItems.forEach((item, index) => {
+                const name = item.querySelector('.non-digital-model-name').value;
+                const definition = item.querySelector('.non-digital-model-definition').value;
+                
+                if (name && definition) {
+                    models.push(`${index + 1}. ${name}: ${definition}`);
+                }
+            });
+            
+            return models.join('\n\n');
+        }
+
+        // Collect differences data
+        function collectDifferencesData() {
+            const differences = [];
+            
+            for (let i = 1; i <= 5; i++) {
+                const digital = document.querySelector(`.difference-digital-${i}`).value;
+                const nonDigital = document.querySelector(`.difference-non-digital-${i}`).value;
+                
+                if (digital && nonDigital) {
+                    differences.push(`Perbedaan ${i}:\nDigital: ${digital}\nNon-Digital: ${nonDigital}`);
+                }
+            }
+            
+            return differences.join('\n\n');
+        }
+
+        // Form submission handler
+        document.getElementById('assignment-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (currentData.length >= 999) {
+                showMessage('Batas maksimum 999 jawaban telah tercapai. Silakan hubungi guru Anda.', 'error');
+                return;
+            }
+
+            const submitBtn = document.getElementById('submit-btn');
+            const submitText = document.getElementById('submit-text');
+            const submitLoading = document.getElementById('submit-loading');
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.classList.add('loading');
+            submitText.textContent = 'Menyimpan...';
+            submitLoading.classList.remove('hidden');
+
+            try {
+                const formData = {
+                    student_name: document.getElementById('student-name').value,
+                    student_class: document.getElementById('student-class').value,
+                    references: collectReferencesData(),
+                    conclusion: document.getElementById('conclusion').value,
+                    digital_models: collectDigitalModelsData(),
+                    non_digital_models: collectNonDigitalModelsData(),
+                    differences: collectDifferencesData(),
+                    case_1: document.getElementById('case-1').value,
+                    case_2: document.getElementById('case-2').value,
+                    case_3: document.getElementById('case-3').value,
+                    case_4: document.getElementById('case-4').value,
+                    case_5: document.getElementById('case-5').value,
+                    submitted_at: new Date().toISOString()
+                };
+
+                if (window.dataSdk) {
+                    const result = await window.dataSdk.create(formData);
+                    if (result.isOk) {
+                        showMessage('Jawaban berhasil disimpan! Anda dapat mendownload PDF sekarang.', 'success');
+                    } else {
+                        showMessage('Gagal menyimpan jawaban. Silakan coba lagi.', 'error');
+                    }
+                }
+            } catch (error) {
+                showMessage('Terjadi kesalahan. Silakan coba lagi.', 'error');
+            } finally {
+                // Reset loading state
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('loading');
+                submitText.textContent = 'Simpan Jawaban';
+                submitLoading.classList.add('hidden');
+            }
+        });
+
+        // PDF download handler
+        document.getElementById('download-btn').addEventListener('click', async function() {
+            const downloadBtn = document.getElementById('download-btn');
+            const downloadText = document.getElementById('download-text');
+            const downloadLoading = document.getElementById('download-loading');
+            
+            // Show loading state
+            downloadBtn.disabled = true;
+            downloadBtn.classList.add('loading');
+            downloadText.textContent = 'Membuat PDF...';
+            downloadLoading.classList.remove('hidden');
+
+            try {
+                await generatePDF();
+            } catch (error) {
+                showMessage('Gagal membuat PDF. Silakan coba lagi.', 'error');
+            } finally {
+                // Reset loading state
+                downloadBtn.disabled = false;
+                downloadBtn.classList.remove('loading');
+                downloadText.textContent = 'Download PDF';
+                downloadLoading.classList.add('hidden');
+            }
+        });
+
+        // Generate PDF function
+        async function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const studentName = document.getElementById('student-name').value || 'Nama Siswa';
+            const studentClass = document.getElementById('student-class').value || 'Kelas';
+            const formTitle = config.form_title || defaultConfig.form_title;
+            const teacherName = config.teacher_name || defaultConfig.teacher_name;
+            const subjectName = config.subject_name || defaultConfig.subject_name;
+            
+            let yPosition = 20;
+            const pageHeight = doc.internal.pageSize.height;
+            const margin = 20;
+            const lineHeight = 7;
+            
+            // Helper function to add text with word wrap
+            function addText(text, x, y, maxWidth = 170, fontSize = 10) {
+                doc.setFontSize(fontSize);
+                const lines = doc.splitTextToSize(text, maxWidth);
+                doc.text(lines, x, y);
+                return y + (lines.length * lineHeight);
+            }
+            
+            // Helper function to check if new page is needed
+            function checkNewPage(requiredSpace = 30) {
+                if (yPosition + requiredSpace > pageHeight - margin) {
+                    doc.addPage();
+                    yPosition = 20;
+                }
+            }
+            
+            // Header
+            doc.setFontSize(16);
+            doc.setFont(undefined, 'bold');
+            yPosition = addText(formTitle, margin, yPosition, 170, 16);
+            yPosition += 5;
+            
+            doc.setFontSize(12);
+            doc.setFont(undefined, 'normal');
+            yPosition = addText(`Mata Pelajaran: ${subjectName}`, margin, yPosition);
+            yPosition = addText(`Guru: ${teacherName}`, margin, yPosition);
+            yPosition = addText(`Kelas XII SMA`, margin, yPosition);
+            yPosition += 10;
+            
+            // Student info
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('DATA SISWA', margin, yPosition);
+            doc.setFont(undefined, 'normal');
+            yPosition = addText(`Nama: ${studentName}`, margin, yPosition);
+            yPosition = addText(`Kelas: ${studentClass}`, margin, yPosition);
+            yPosition += 10;
+            
+            // 1. Pengertian Model Bisnis - References and Conclusion
+            checkNewPage(40);
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('1. PENGERTIAN MODEL BISNIS', margin, yPosition);
+            yPosition += 5;
+            
+            // References
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('Referensi Buku:', margin, yPosition);
+            doc.setFont(undefined, 'normal');
+            const referencesData = collectReferencesData();
+            if (referencesData) {
+                yPosition = addText(referencesData, margin, yPosition);
+            } else {
+                yPosition = addText('Belum ada referensi yang diisi', margin, yPosition);
+            }
+            yPosition += 5;
+            
+            // Conclusion
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('Kesimpulan:', margin, yPosition);
+            doc.setFont(undefined, 'normal');
+            const conclusion = document.getElementById('conclusion').value;
+            if (conclusion) {
+                yPosition = addText(conclusion, margin, yPosition);
+            } else {
+                yPosition = addText('Belum dijawab', margin, yPosition);
+            }
+            yPosition += 10;
+            
+            // 2. Model Bisnis Digital
+            checkNewPage(40);
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('2. MODEL BISNIS DIGITAL', margin, yPosition);
+            yPosition += 5;
+            doc.setFont(undefined, 'normal');
+            const digitalModels = collectDigitalModelsData();
+            if (digitalModels) {
+                yPosition = addText(digitalModels, margin, yPosition);
+            } else {
+                yPosition = addText('Belum dijawab', margin, yPosition);
+            }
+            yPosition += 10;
+            
+            // 3. Model Bisnis Non-Digital
+            checkNewPage(40);
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('3. MODEL BISNIS NON-DIGITAL', margin, yPosition);
+            yPosition += 5;
+            doc.setFont(undefined, 'normal');
+            const nonDigitalModels = collectNonDigitalModelsData();
+            if (nonDigitalModels) {
+                yPosition = addText(nonDigitalModels, margin, yPosition);
+            } else {
+                yPosition = addText('Belum dijawab', margin, yPosition);
+            }
+            yPosition += 10;
+            
+            // 4. Perbedaan Model Bisnis Digital dan Non-Digital
+            checkNewPage(40);
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('4. PERBEDAAN MODEL BISNIS DIGITAL DAN NON-DIGITAL', margin, yPosition);
+            yPosition += 5;
+            doc.setFont(undefined, 'normal');
+            const differences = collectDifferencesData();
+            if (differences) {
+                yPosition = addText(differences, margin, yPosition);
+            } else {
+                yPosition = addText('Belum dijawab', margin, yPosition);
+            }
+            yPosition += 10;
+            
+            // 5. Studi Kasus
+            checkNewPage(50);
+            doc.setFont(undefined, 'bold');
+            yPosition = addText('5. STUDI KASUS', margin, yPosition);
+            yPosition += 5;
+            
+            const cases = [
+                {
+                    title: 'Kasus 1: Toko Kelontong',
+                    description: 'Seorang pengusaha membuka toko kelontong di lingkungan perumahan. Ia menjual berbagai kebutuhan sehari-hari seperti beras, minyak, sabun, dan makanan ringan. Pelanggan datang langsung ke toko untuk berbelanja.',
+                    answer: document.getElementById('case-1').value || 'Belum dijawab'
+                },
+                {
+                    title: 'Kasus 2: Aplikasi Pemesanan Makanan',
+                    description: 'Sebuah startup teknologi mengembangkan aplikasi mobile untuk pemesanan makanan online. Mereka menghubungkan restoran dengan konsumen dan mengambil komisi dari setiap transaksi yang terjadi melalui platform mereka.',
+                    answer: document.getElementById('case-2').value || 'Belum dijawab'
+                },
+                {
+                    title: 'Kasus 3: Content Creator YouTube',
+                    description: 'Seorang content creator membuat video edukatif di YouTube tentang matematika. Ia mendapatkan penghasilan dari iklan yang ditampilkan di videonya dan juga menjual kursus online premium kepada subscriber yang ingin belajar lebih mendalam.',
+                    answer: document.getElementById('case-3').value || 'Belum dijawab'
+                },
+                {
+                    title: 'Kasus 4: Layanan Berlangganan Box Kecantikan',
+                    description: 'Sebuah perusahaan menyediakan layanan berlangganan bulanan untuk pengiriman box berisi produk kecantikan dan perawatan kulit. Pelanggan membayar biaya tetap setiap bulan dan menerima produk-produk pilihan yang dikirim ke rumah mereka.',
+                    answer: document.getElementById('case-4').value || 'Belum dijawab'
+                },
+                {
+                    title: 'Kasus 5: Pengrajin Furniture Custom',
+                    description: 'Seorang pengrajin furniture kayu menerima pesanan custom dari pelanggan. Ia membuat meja, kursi, dan lemari sesuai dengan spesifikasi dan desain yang diminta oleh pelanggan. Setiap produk dibuat secara individual dan unik.',
+                    answer: document.getElementById('case-5').value || 'Belum dijawab'
+                }
+            ];
+            
+            cases.forEach(caseStudy => {
+                checkNewPage(60);
+                doc.setFont(undefined, 'bold');
+                yPosition = addText(caseStudy.title, margin, yPosition);
+                yPosition += 3;
+                doc.setFont(undefined, 'normal');
+                yPosition = addText(caseStudy.description, margin, yPosition);
+                yPosition += 5;
+                doc.setFont(undefined, 'bold');
+                yPosition = addText('Jawaban:', margin, yPosition);
+                doc.setFont(undefined, 'normal');
+                yPosition = addText(caseStudy.answer, margin, yPosition);
+                yPosition += 10;
+            });
+            
+            // Footer
+            checkNewPage(20);
+            yPosition += 10;
+            doc.setFontSize(8);
+            yPosition = addText(`Dikerjakan pada: ${new Date().toLocaleDateString('id-ID')}`, margin, yPosition, 170, 8);
+            
+            // Save PDF
+            doc.save(`Tugas_Model_Bisnis_${studentName.replace(/\s+/g, '_')}.pdf`);
+        }
+
+        // Show message function
+        function showMessage(message, type) {
+            const successMsg = document.getElementById('success-message');
+            successMsg.className = `mt-6 p-4 border rounded-lg ${
+                type === 'success' 
+                    ? 'bg-green-100 border-green-400 text-green-700' 
+                    : 'bg-red-100 border-red-400 text-red-700'
+            }`;
+            successMsg.querySelector('span').textContent = message;
+            successMsg.classList.remove('hidden');
+            
+            setTimeout(() => {
+                successMsg.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Add reference button handler
+        document.getElementById('add-reference-btn').addEventListener('click', function() {
+            const container = document.getElementById('references-container');
+            const referenceCount = container.children.length + 1;
+            
+            const newReference = document.createElement('div');
+            newReference.className = 'reference-item mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200';
+            newReference.innerHTML = `
+                <h4 class="text-sm font-semibold text-gray-800 mb-3">Referensi ${referenceCount}</h4>
+                <div class="grid md:grid-cols-4 gap-3 mb-4">
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">Nama Pengarang</label>
+                        <input type="text" class="reference-author w-full px-3 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">Tahun</label>
+                        <input type="text" class="reference-year w-full px-3 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">Judul Buku</label>
+                        <input type="text" class="reference-title w-full px-3 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-600 mb-1">Penerbit</label>
+                        <input type="text" class="reference-publisher w-full px-3 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Pengertian Model Bisnis Menurut Referensi Ini:</label>
+                    <textarea class="reference-definition w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="4" required placeholder="Tuliskan pengertian model bisnis menurut buku referensi ini..."></textarea>
+                </div>
+            `;
+            
+            container.appendChild(newReference);
+        });
+
+        // Initialize app when page loads
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99e2515e93f9ce2a',t:'MTc2MzA3OTM2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
